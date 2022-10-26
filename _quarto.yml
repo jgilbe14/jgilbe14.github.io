@@ -8,12 +8,14 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/jgilbe14
       - icon: twitter
         href: https://twitter.com
+      - icon: linkedin
+        href: https://www.linkedin.com/in/josiah-gilbert/
 format:
   html:
-    theme: cosmo
+    theme: zephyr
     css: styles.css
 
 
