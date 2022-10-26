@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "The great outdoors, philosophical conversation, reading…\n\nlibrary(tidyverse)\n\n\ndata <- data.frame(norm = rnorm(10000, mean = 10, sd = 1))\n\nggplot(data)+\n  geom_histogram(aes(x = norm))+\n  theme_classic()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+    "text": "Hello! I am a graduate student in the statistics department at Virginia Tech. I received my Bachelor’s Degree in Statistics from CalPoly in San Luis Obispo, CA. I’m fascinated by the complexity of the world and the ubiquity of patterns, especially the hidden patterns in randomness. Statistics provides powerful tools to robustly quantify and analyze these patterns and to turn them into actionable insights.\nI have experience working in Python and R, and many other less significant statistical software packages such as JMP, Minitab and SAS."
   },
   {
     "objectID": "hello.html",
