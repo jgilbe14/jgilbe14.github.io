@@ -13,7 +13,7 @@ about:
 
 ---
 
-Hello! I am a graduate student in the statistics department at Virginia Tech. I received my Bachelor's Degree in Statistics from CalPoly in San Luis Obispo, CA. I'm fascinated by the complexity of the world and the ubiquity of patterns, especially the hidden patterns in randomness. Statistics provides powerful tools to robustly quantify and analyze these patterns and to turn them into actionable insights.
+Hello! I am a graduate student in the statistics department at Virginia Tech. I received my Bachelor's Degree in Statistics from CalPoly in San Luis Obispo, CA. I'm fascinated by the complexity of the world and the ubiquity of patterns, especially the hidden patterns in randomness. Statistics provides powerful tools to robustly quantify and analyze these patterns and to turn them into actionable insights. 
 
 I have experience working in Python and R, and many other less significant statistical software packages such as JMP, Minitab and SAS.
 

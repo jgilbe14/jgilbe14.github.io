@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2022-10-25">
+<meta name="author" content="Josiah Gilbert">
+<meta name="dcterms.date" content="2022-11-29">
 
-<title>../.. - Post With Code</title>
+<title>../.. - Litter Decomposition Study using Tidymodels</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -60,6 +123,27 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="../../site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="../../site_libs/jquery-1.12.4/jquery.min.js"></script>
+<link href="../../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<link href="../../site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="../../site_libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="../../site_libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="../../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="../../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<link href="../../site_libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="../../site_libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<script src="../../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../../site_libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -105,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Litter Decomposition Study using Tidymodels</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -120,14 +204,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Josiah Gilbert </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 25, 2022</p>
+        <p class="date">November 29, 2022</p>
       </div>
     </div>
     
@@ -145,9 +229,443 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<p>For this project I utilized some of the tidymodels functionality to run classification models on data from a series of ecological experiments carried out across North America during the 1990’s. The experiments studied the chemical/nutritional composition of leaf litter as it decayed over time and in different climate and substrate regimes.</p>
+<p>First we need to load all of the necessary libraries for our analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kknn)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(baguette)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data is stored in a number of different datasets and we need to read all of these in first and then combine them as necessary to be able to explore the data.</p>
+<p>I’m using three individual datasets</p>
+<ul>
+<li><p>taxon_class.csv</p></li>
+<li><p>site_data.csv</p></li>
+<li><p>nutrients.csv</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>taxa <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"taxon_class.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Taxonomic Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Family</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"species"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Taxonomic Code</span><span class="st">`</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"family"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(Family)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Taxonomic Code</span><span class="st">`</span>, Family))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>site_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"site_data.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="st">`</span><span class="at">STCODE</span><span class="st">`</span>, <span class="st">`</span><span class="at">SITENAME</span><span class="st">`</span>, <span class="st">`</span><span class="at">LATDEG</span><span class="st">`</span>, <span class="st">`</span><span class="at">LATMIN</span><span class="st">`</span>, <span class="st">`</span><span class="at">LONGDEG</span><span class="st">`</span>, <span class="st">`</span><span class="at">LONGMIN</span><span class="st">`</span>, <span class="st">`</span><span class="at">ELEV</span><span class="st">`</span>, <span class="st">`</span><span class="at">TEMP</span><span class="st">`</span>, <span class="st">`</span><span class="at">PRECIP</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"lat"</span> <span class="ot">=</span> LATDEG <span class="sc">+</span> LATMIN<span class="sc">/</span><span class="dv">60</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">"long"</span> <span class="ot">=</span> LONGDEG <span class="sc">+</span> LONGMIN<span class="sc">/</span><span class="dv">60</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(LATDEG, LATMIN, LONGDEG, LONGMIN))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>nutrients <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"nutrients.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"species"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(SPECIES),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="st">"type"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="fu">case_when</span>(TYPE <span class="sc">==</span> <span class="st">"L"</span> <span class="sc">~</span> <span class="st">"leaves"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                                      TYPE <span class="sc">==</span> <span class="st">"W"</span> <span class="sc">|</span> TYPE <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">|</span> TYPE <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> <span class="st">"wood"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                                      TYPE <span class="sc">==</span> <span class="st">"R"</span> <span class="sc">~</span> <span class="st">"roots"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                                      TYPE <span class="sc">==</span> <span class="st">"M"</span> <span class="sc">~</span> <span class="st">"soil"</span>)),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="st">"site"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(SITE),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="st">"K"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(K)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(STCODE, SPECIES, SITE, TYPE, FORMAT, REP, NIR_NUM, STARTDATE, LAB, S, V22, N, AL)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(taxa, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"species"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can map the locations of the experiment sites using the leaflet package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addAwesomeMarkers</span>(<span class="at">lng =</span> <span class="sc">-</span>site_data<span class="sc">$</span>long, <span class="at">lat =</span> site_data<span class="sc">$</span>lat,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> site_data<span class="sc">$</span>SITENAME, <span class="at">clusterOptions =</span> <span class="fu">markerClusterOptions</span>(<span class="at">freezeAtZoom =</span> <span class="dv">16</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addMiniMap</span>(<span class="at">position =</span> <span class="st">"bottomleft"</span>, <span class="at">width =</span> <span class="dv">75</span>, <span class="at">height =</span> <span class="dv">75</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addProviderTiles</span>(<span class="st">"Esri.WorldImagery"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-f4dca5dd0908026e997d" style="width:100%;height:464px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4dca5dd0908026e997d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addAwesomeMarkers","args":[[44.2333333333333,68.6333333333333,9.16666666666667,64.75,38.8666666666667,45.4,40.8166666666667,35,17.95,43.9333333333333,42.6666666666667,32.5,58,42.4,39.0833333333333,10,18.3166666666667,40.2833333333333,10.3,33.5,46,40.05,47.8333333333333,34.4833333333333,33.5,29.75,37.5],[-122.183333333333,-149.566666666667,-79.85,-148,-105.633333333333,-93.2,-104.766666666667,-83.5,-65.8666666666667,-71.75,-72.25,-106.75,-134,-85.4,-96.5833333333333,-83,-65.8166666666667,-105.65,-84.8,-79.2166666666667,-89.6666666666667,-105.616666666667,-123.883333333333,-106.666666666667,-117.75,-82.5,-75.6666666666667],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":16},null,["H.J. Andrews Experimental Forest (AND)","Arctic Tundra (ARC)","Barro Colorado Island (BCI)","Bonanza Creek Experimental Forest (BNZ)","Blodgett Research Forest (BSF)","Cedar Creek Natural History Area (CDR)","Central Plains Experimental Range (CPR)","Coweeta Hydrological Laboratory (CWT)","Guanica State Forest (GSF)","Hubbard Brook Experimental Forest (HBR)","Harvard Forest (HFR)","Jornada Experimental Range (JRN)","Juneau (JUN)","Kellogg Biological Station (KBS)","Konza Prairie Research Natural Area (KNZ)","La Selva Biological Station (LBS)","Luquillo Experimental Forest (LUQ)","Loch Vale Watershed (LVW)","Monte Verde (MTV)","North Inlet (Hobcaw Barony) (NIN)","North Temperate Lakes (NLK)","Niwot Ridge/Green Lakes Valley (NWT)","Olympic National Park (OLY)","Sevilleta National Wildlife Refuge (SEV)","Santa Margarita Ecological Reserve (SMR)","University of Florida (UFL)","Virginia Coast Reserve (VCR)"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMiniMap","args":[null,null,"bottomleft",75,75,19,19,-5,false,false,false,false,false,false,{"color":"#ff7800","weight":1,"clickable":false},{"color":"#000000","weight":1,"clickable":false,"opacity":0,"fillOpacity":0},{"hideText":"Hide MiniMap","showText":"Show MiniMap"},[]]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[9.16666666666667,68.6333333333333],"lng":[-149.566666666667,-65.8166666666667]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Note that all of North America is included (extending towards the pole in Alaska) with additional sites in the Caribbean and Central America.</p>
+<p>I’m interested in exploring the relationship between the taxonomic family the leaf litter was sourced from and it’s nutritional composition. However, since there are 18 different families represented in our cleaned data some with only a few observation, I’m going to focus on the top five familes with the most observations in our dataset. We’ll determine which those familes are in the code below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(nutrients<span class="sc">$</span>family))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>top_fams <span class="ot">&lt;-</span> nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(family) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">n</span>())<span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(family) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Selecting by n()</code></pre>
+</div>
+</div>
+<section id="plotting" class="level1">
+<h1>Plotting</h1>
+<p>Now that we have the top five familes in our dataset, let’s examaine how the chemical composition of each varies across the different elements. Each of the elements which was analysed in the leaf litter is listed by it’s chemical abbreviation. We can look up the meaning of each of these abbreviations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> FE))<span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Iron"</span>)<span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Iron composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> CA))<span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Calcium"</span>)<span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Calcium composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> B))<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Boron"</span>)<span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Boron composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> CU))<span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Copper"</span>)<span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Copper composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> K))<span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Potassium"</span>)<span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Potassium composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> MG))<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Magnesium"</span>)<span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Magnesium composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> MN))<span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Manganese"</span>)<span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Manganese composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> P))<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Phosphorus"</span>)<span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Phosphorus</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st"> composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> family, <span class="at">y =</span> ZN))<span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Family"</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Zinc"</span>)<span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Zinc</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st"> composition of leaf litter by family"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-9.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Examaining the plots a few observations strike me. First, note how strongly right-skewed the distribution of chemical composition within each family is for most of the chemicals. Almost all of the boxplots feature long right tails of outliers. Second notice that some of the chemicals seem to have different concentrations depending on family. Looking at the plot for calcium, note how Euphorbiaceae (the spurge family) has a mean that is substantially higher (arguably) than the means for any of the other familes except Pinaceae. A similar observation can be made about the Manganese composition in the Aceraceae (maple family) which appears to have a substantially higher mean manganese composition than any of the other familes. Suffice it to say, there appears to be differentiation in leaf litter composition based on the source family. Let’s try building some classification models to see if we can take advantage of this differentiation to predict the source family of a given sample of leaf litter based on it’s chemical composition.</p>
+</section>
+<section id="classification-models-using-tidymodels" class="level1">
+<h1>Classification Models using tidymodels</h1>
+<p>We are going to try to predict the family which the leaf litter came from based on the chemical composition of the leaf litter. To do this I’m going to use tidymodels, which has a stream-lined pipeline approach to fitting models which will allow us to test several different kinds of classification models.</p>
+<section id="k-nearest-neighbors" class="level2">
+<h2 class="anchored" data-anchor-id="k-nearest-neighbors">K-nearest Neighbors</h2>
+<p>We’ll using the classic K-nearest neighbors model. To fit a model in the tidyverse we specify the “recipe” which in our simple case is just the response and predictors and the data source. We then specify the model, including the engine (the package for the model) and the mode (classification in our case). We are interested in predicative accuracy, so we’ll use cross-validation to estimate the out-of-sample predicative accuracy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">452</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>top_fam_nutrients <span class="ot">&lt;-</span> nutrients <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(family <span class="sc">%in%</span> top_fams) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"family"</span> <span class="ot">=</span> <span class="fu">as.character</span>(family))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>family_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(family <span class="sc">~</span> B <span class="sc">+</span> CA <span class="sc">+</span> CU <span class="sc">+</span> FE <span class="sc">+</span> K <span class="sc">+</span> MG <span class="sc">+</span> MN <span class="sc">+</span> P <span class="sc">+</span> ZN, <span class="at">data =</span> top_fam_nutrients)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>knn_mod <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kknn"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>family_workflow_knn <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(knn_mod)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>family_cvs <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(top_fam_nutrients, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>family_workflow_knn <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.689    10  0.0110 Preprocessor1_Model1
+2 roc_auc  hand_till  0.860    10  0.0119 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>Our k-nearest neighbor’s model was able to successfully predict which of the five top families a given leaf litter sample came from about 69% of the time. Not terrible accuracy for a multiclass problem (as opposed to a binary classification problem), but still not very good. Let’s see if we can do better with some other kind of model.</p>
+</section>
+<section id="trees" class="level2">
+<h2 class="anchored" data-anchor-id="trees">Trees</h2>
+<section id="decision-trees" class="level3">
+<h3 class="anchored" data-anchor-id="decision-trees">Decision Trees</h3>
+<p>We’ll try a decision tree next. The process is very similar, and since we already specified a recipe when fitting our k-nearest neighbors model we’ll just reuse that recipe here. Again, we’ll cross-validate to find our estimated out-of-sample predictive accuracy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">214</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>dt_mod <span class="ot">&lt;-</span> <span class="fu">decision_tree</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"rpart"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>family_workflow_dt <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(dt_mod)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>family_workflow_dt <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.622    10  0.0152 Preprocessor1_Model1
+2 roc_auc  hand_till  0.799    10  0.0106 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>Our decision tree actually fared worse than the k-nearest neighbor’s model, with an estimated predictive accuracy of about 62%.</p>
+<p>We can also plot our decision tree, which can show us which are the most important variables in classifying the family of the sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fitted_family_tree <span class="ot">&lt;-</span> <span class="fu">fit</span>(family_workflow_dt, <span class="at">data =</span> top_fam_nutrients) <span class="sc">%&gt;%</span> <span class="fu">extract_fit_parsnip</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(fitted_family_tree<span class="sc">$</span>fit, <span class="at">roundint =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="bagged-trees" class="level3">
+<h3 class="anchored" data-anchor-id="bagged-trees">Bagged Trees</h3>
+<p>Now let’s try a bagged tree. This bootstraps our data and then builds many different treees based on those different bootstraped samples and uses the overall prediction from all the trees to classify the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">615</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>bag_tree_mod <span class="ot">&lt;-</span> <span class="fu">bag_tree</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"rpart"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>family_workflow_bgt <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(bag_tree_mod)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>family_workflow_bgt <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.732    10 0.00887 Preprocessor1_Model1
+2 roc_auc  hand_till  0.899    10 0.00967 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>We see improvement over the decision tree and even our k-nearest neighbor’s model, with an estimated out-of-sample predicative accuracy of 73%.</p>
+</section>
+<section id="random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest">Random Forest</h3>
+<p>Let’s try a random forest next. A random forest also is built using bootstrapped samples from the orginal sample, like a bagged tree, but it builds different trees using different subsets of the possible predictors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">943</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>rf_mod <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>family_workflow_rf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_mod)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>family_workflow_rf <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.775    10 0.00850 Preprocessor1_Model1
+2 roc_auc  hand_till  0.928    10 0.00728 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>Our random forest model has the best predictive accuracy of any of the models we’ve tested so far with an estimated out-of-sample predicative accuracy of 77.5%.</p>
+<p>Two final methods we can try are Linear Discriminant Analysis and Quadratic Discriminant Analysis.</p>
+</section>
+<section id="linear-discriminant-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="linear-discriminant-analysis">Linear Discriminant Analysis</h3>
+<p>I’m less familiar with how either LDA or QDA works so I’ll simply report the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>lda_mod <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"MASS"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>family_workflow_lda <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lda_mod)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>family_workflow_lda <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.506    10  0.0177 Preprocessor1_Model1
+2 roc_auc  hand_till  0.774    10  0.0110 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>Our worst model so far, our LDA model has an estimated out-of-sample predicative accuracy of just over 50%.</p>
+</section>
+<section id="quadratic-discriminant-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="quadratic-discriminant-analysis">Quadratic Discriminant Analysis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">333</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>qda_mod <span class="ot">&lt;-</span> <span class="fu">discrim_quad</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">set_engine</span>(<span class="st">'MASS'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">set_mode</span>(<span class="st">'classification'</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>family_workflow_qda <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(family_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(qda_mod)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>family_workflow_qda <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(family_cvs) <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 6
+  .metric  .estimator  mean     n std_err .config             
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy multiclass 0.452    10  0.0141 Preprocessor1_Model1
+2 roc_auc  hand_till  0.729    10  0.0136 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>Remarkably exceeding the LDA in lack of accuracy, our LDA model has an estimated out-of-sample predicative accuracy of 45%.</p>
+</section>
+</section>
+</section>
+<section id="possible-confounding" class="level1">
+<h1>Possible confounding</h1>
+<p>Not knowing the exact experimental design, I want to check whether all families were tested at all sites, or whether perhaps families were tested primarily at the sites where the are native. I was not able to determine whether the leaf litter being studied was the natural leaf litter at each site or whether the leaf litter from each site was tested at all of the other sites. While I don’t have information on the native range for all of the species in the study, we can check whether the top families were tested at all of the sites or not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>top_fam_nutrients <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(family) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">length</span>(<span class="fu">unique</span>(site)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+  family        `length(unique(site))`
+  &lt;chr&gt;                          &lt;int&gt;
+1 Aceraceae                         28
+2 Cupressaceae                      28
+3 Euphorbiaceae                     28
+4 Pinaceae                          28
+5 Poaceae                           28</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>missing_site <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">unique</span>(nutrients<span class="sc">$</span>site)[<span class="sc">!</span>(<span class="fu">unique</span>(nutrients<span class="sc">$</span>site) <span class="sc">%in%</span> <span class="fu">unique</span>(top_fam_nutrients<span class="sc">$</span>site))][<span class="dv">1</span>])</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>site_data <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">==</span> missing_site) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(SITENAME)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>character(0)</code></pre>
+</div>
+</div>
+<p>This is an unexpected result… it appears that the site metadata file does not contain an entry for the site which did not have any of the top five families. I investigated this a bit more and concluded that it was legitimate site, but could not determine why it is missing from the metadata file.</p>
+<p>Another way to approach this same question is to examine a species that I am familiar with and see whether it was tested at experimental sites outside of it’s natural range. I’ll choose Pseudotsuga menziesii, the Douglas Fir, a coniferous tree found in western North America. Let’s see which sites tested Douglas Fir litter, if any of those sites were outside of the native range of Douglas Fir we can conclude that the experimental design included testing litter outside of it’s source site.</p>
+<p>First we need to determine the species code of Douglas Fir</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>taxa_species <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"taxon_class.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Taxonomic Code</span><span class="st">`</span>, <span class="st">"Species"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"Pseudotsuga menziesii"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"species"</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Taxonomic Code</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>taxa_species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PSME"</code></pre>
+</div>
+</div>
+<p>Now we can see which sites had Douglas Fir litter tested at them. We’ll map them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>douglas_fir_site_names <span class="ot">&lt;-</span> nutrients <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> taxa_species) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(site) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>douglas_fir_sites <span class="ot">&lt;-</span> site_data <span class="sc">%&gt;%</span> </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">%in%</span> douglas_fir_site_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addAwesomeMarkers</span>(<span class="at">lng =</span> <span class="sc">-</span>douglas_fir_sites<span class="sc">$</span>long, <span class="at">lat =</span> douglas_fir_sites<span class="sc">$</span>lat,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> douglas_fir_sites<span class="sc">$</span>SITENAME, <span class="at">clusterOptions =</span> <span class="fu">markerClusterOptions</span>(<span class="at">freezeAtZoom =</span> <span class="dv">16</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addMiniMap</span>(<span class="at">position =</span> <span class="st">"bottomleft"</span>, <span class="at">width =</span> <span class="dv">75</span>, <span class="at">height =</span> <span class="dv">75</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addProviderTiles</span>(<span class="st">"Esri.WorldImagery"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-ca7d8373c6c6df604d3c" style="width:100%;height:464px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ca7d8373c6c6df604d3c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addAwesomeMarkers","args":[[33.5,37.5],[-79.2166666666667,-75.6666666666667],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":16},null,["North Inlet (Hobcaw Barony) (NIN)","Virginia Coast Reserve (VCR)"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMiniMap","args":[null,null,"bottomleft",75,75,19,19,-5,false,false,false,false,false,false,{"color":"#ff7800","weight":1,"clickable":false},{"color":"#000000","weight":1,"clickable":false,"opacity":0,"fillOpacity":0},{"hideText":"Hide MiniMap","showText":"Show MiniMap"},[]]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[33.5,37.5],"lng":[-79.2166666666667,-75.6666666666667]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The results are quite surprising. Douglas Fir was not tested at all of the sites, but only at a few sites on the Atlantic Coast. Douglas Fir is not native to the Atlantic Coast, so I do not have an explanation for why these are the sites where it was tested.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>As we’ve seen, tidymodels provides an easy and streamlined method to fit machine-learning models in R. In fact, we’ve barely scratched the surface since we didn’t consider tuning any of the parameters of our models using a grid search, or adding steps to our recipes to choose two possible complexities we could have added to our analysis.</p>
+<p>And with regard to the data, there is so much more we could have explored. I did not take into consideration how long the leaf litter had been decaying (although this was part of the experiment), and I think that delving deeper in the experimental design and determining exactly how the study was setup and conducted would help us think about the questions I raised toward the end as to whether the observations for each plant were taken at all sites or at a small subset (which seems like it would be a confounding factor).</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
